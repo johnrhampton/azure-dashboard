@@ -3,3 +3,6 @@
 
 # node
 node_modules/
+
+# use yarn
+package-lock.json
