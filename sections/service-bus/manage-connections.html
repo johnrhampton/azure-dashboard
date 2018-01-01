@@ -12,7 +12,7 @@
       <div class="demo-wrapper">
         <button id="add-connections-toggle" class="js-container-target demo-toggle-button">
           Add Connection
-          <div class="demo-meta u-avoid-clicks"><span>for dev, prod, etc.</span></div>
+          <div class="demo-meta u-avoid-clicks"><span>for dev, qa, etc.</span></div>
         </button>
         <div class="demo-box">
           <div class="demo-controls">
@@ -36,7 +36,7 @@
                 data-field="connectionString"
                 class="mdl-textfield__input"
                 type="text"
-                placeholder="Endpoint=sb://...">
+                placeholder="Endpoint=sb://my.servicebus.windows.net/;SharedAccessKeyName=MyKeyName;SharedAccessKey=MyKey">
               <label class="mdl-textfield__label" for="add-connection-string">Connection String</label>
             </div>
           </div>
@@ -51,17 +51,11 @@
     <div class="demo">
       <div class="demo-wrapper">
         <button id="view-connections-toggle" class="js-container-target demo-toggle-button">
-          View Existing Connections
+          Existing Connections
           <div class="demo-meta u-avoid-clicks"><span id="sb-connection-count"></span> connection(s)</div>
         </button>
         <div class="demo-box">
-          <div class="demo-controls">
-            <button class="demo-button" id="app-info">View Demo</button>
-            <span class="demo-response" id="got-app-info"></span>
-          </div>
-          <p>The main process <code>app</code> module can be used to get the path at which your app is located on the user's computer.</p>
-          <p>In this example, to get that information from the renderer process, we use the <code>ipc</code> module to send a message to the main process requesting the app's path.</p>
-          <p>See the <a href="http://electron.atom.io/docs/api/app">app module documentation<span class="u-visible-to-screen-reader">(opens in new window)</span></a> for more.</p>
+          <ul id="service-bus-connection-list" class="mdl-list service-bus-connection-list"></ul>
         </div>
       </div>
     </div>
