@@ -10,6 +10,7 @@
     "document": true
   },
   "rules": {
+    "arrow-parens": ["error", "as-needed"],
     "prefer-destructuring": "off",
     "linebreak-style": "off",
     "no-console": "off",
