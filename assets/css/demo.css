@@ -14,7 +14,7 @@
 
 .demo-wrapper {
   position: relative;
-  max-width: 740px;
+  max-width: 940px;
   margin: 0 auto;
   padding: 0 2rem;
 }
@@ -202,4 +202,3 @@
 .demo-protip strong {
   font-weight: 600;
 }
-
