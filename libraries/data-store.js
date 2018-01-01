@@ -3,4 +3,9 @@
  */
 const Store = require('electron-store');
 
-module.exports = new Store();
+const keys = {
+  SERVICE_BUS_CONNECTIONS: 'service-bus-connections',
+};
+
+module.exports.store = new Store();
+module.exports.keys = keys;
