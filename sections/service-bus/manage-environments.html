@@ -1,0 +1,68 @@
+<template class="task-template">
+  <section id="manage-sb-environments-section" class="section js-section u-category-service-bus">
+    <header class="section-header">
+      <div class="section-wrapper">
+        <h1>
+          Manage Service Bus Environments
+        </h1>
+      </div>
+    </header>
+
+    <div class="demo">
+      <div class="demo-wrapper">
+        <button id="add-connections-toggle" class="js-container-target demo-toggle-button">
+          Add Connection
+          <div class="demo-meta u-avoid-clicks"><span>for dev, qa, etc.</span></div>
+        </button>
+        <div class="demo-box">
+          <div class="demo-controls">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input
+                id="add-connection-name"
+                data-field="connectionName"
+                class="mdl-textfield__input"
+                type="text"
+                placeholder="dev, prod, etc."
+                pattern="[A-Z,a-z,-]*">
+              <label class="mdl-textfield__label" for="add-connection-name">Connection Name</label>
+              <span class="mdl-textfield__error">Letters and - only</span>
+            </div>
+          </div>
+
+          <div class="demo-controls">
+            <div class="mdl-textfield md-100-percent mdl-js-textfield mdl-textfield--floating-label">
+              <input
+                id="add-connection-string"
+                data-field="connectionString"
+                class="mdl-textfield__input"
+                type="text"
+                placeholder="Endpoint=sb://my.servicebus.windows.net/;SharedAccessKeyName=MyKeyName;SharedAccessKey=MyKey">
+              <label class="mdl-textfield__label" for="add-connection-string">Connection String</label>
+            </div>
+          </div>
+
+          <div class="demo-controls">
+            <button class="demo-button" id="save-connection">Verify and Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo">
+      <div class="demo-wrapper">
+        <button id="view-connections-toggle" class="js-container-target demo-toggle-button">
+          Existing Connections
+          <div class="demo-meta u-avoid-clicks"><span id="sb-connection-count"></span> connection(s)</div>
+        </button>
+        <div class="demo-box">
+          <ul id="service-bus-connection-list" class="mdl-list service-bus-connection-list"></ul>
+        </div>
+      </div>
+    </div>
+
+<script type="text/javascript">
+require('./renderer-process/service-bus/manage-environments');
+</script>
+
+  </section>
+</template>
