@@ -3,104 +3,64 @@
 <head>
   <meta charset="utf-8">
 
+  <!-- mdl -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
-  <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  <link rel="stylesheet" href="node_modules/material-design-lite/dist/material.indigo-pink.min.css">
+  <script defer src="node_modules/material-design-lite/material.min.js"></script>
+
+  <!-- mdl select -->
+  <link rel="stylesheet" href="node_modules/getmdl-select/getmdl-select.min.css">
+  <script defer src="node_modules/getmdl-select/getmdl-select.min.js"></script>
 
   <link rel="stylesheet" href="node_modules/js-snackbar/dist/snackbar.css">
   <link rel="stylesheet" href="assets/css/variables.css">
   <link rel="stylesheet" href="assets/css/nativize.css">
   <link rel="stylesheet" href="assets/css/global.css">
-  <link rel="stylesheet" href="assets/css/about.css">
   <link rel="stylesheet" href="assets/css/nav.css">
   <link rel="stylesheet" href="assets/css/section.css">
   <link rel="stylesheet" href="assets/css/demo.css">
   <link rel="stylesheet" href="assets/css/github.css">
   <link rel="stylesheet" href="assets/css/md.css">
+
+  <!-- sections style -->
+  <link rel="stylesheet" href="assets/css/dashboard.css">
   <link rel="stylesheet" href="assets/css/service-bus.css">
 
-  <!-- sections -->
-  <link rel="import" href="sections/service-bus/manage-connections.html">
+  <!-- sections templates -->
+  <link rel="import" href="sections/dashboard.html">
+  <link rel="import" href="sections/service-bus/manage-environments.html">
 </head>
 <body>
 
   <nav class="nav js-nav">
     <header class="nav-header">
-      <h1 class="nav-title">Azure Dashboard</h1>
+      <h1 class="nav-title" data-modal="dashboard">
+        Azure Dashboard
+      </h1>
       <i class="material-icons md-36 nav-header-icon">dashboard</i>
     </header>
-
-    <!-- <div class="nav-item u-category-windows">
-      <h5 class="nav-category">
-        <svg class="nav-icon"><use xlink:href="assets/img/icons.svg#icon-windows"></use></svg>
-        Windows
-      </h5>
-      <button type="button" id="button-windows" data-section="windows" class="nav-button">Create and manage <em>windows</em></button>
-      <button type="button" id="button-crash-hang" data-section="crash-hang" class="nav-button">Handling window <em>crashes and hangs</em></button>
-    </div>
-
-    <div class="nav-item u-category-menu">
-      <h5 class="nav-category">
-        <svg class="nav-icon"><use xlink:href="assets/img/icons.svg#icon-menu"></use></svg>
-        Menus
-      </h5>
-      <button type="button" id="button-menus" data-section="menus" class="nav-button">Customize <em>menus</em> </button>
-      <button type="button" id="button-shortcuts" data-section="shortcuts" class="nav-button">Register keyboard <em>shortcuts</em></button>
-    </div>
-
-    <div class="nav-item u-category-native-ui">
-      <h5 class="nav-category">
-        <svg class="nav-icon"><use xlink:href="assets/img/icons.svg#icon-native-ui"></use></svg>
-        Native User Interface</h5>
-      <button type="button" id="button-ex-links-file-manager" data-section="ex-links-file-manager" class="nav-button">Open <em>external links</em> or system <em>file manager</em></button>
-      <button type="button" id="button-notifications" data-section="notifications" class="nav-button"> Notifications with and without custom <em>image</em></button>
-      <button type="button" id="button-dialogs" data-section="dialogs" class="nav-button">Use system <em>dialogs</em></button>
-      <button type="button" id="button-tray" data-section="tray" class="nav-button">Put your app in the <em>tray</em></button>
-    </div>-->
-
-    <!-- <div class="nav-item u-category-communication">
-      <h5 class="nav-category">
-        <svg class="nav-icon"><use xlink:href="assets/img/icons.svg#icon-communication"></use></svg>
-        Communication
-      </h5>
-      <button type="button" id="button-ipc" data-section="ipc" class="nav-button">Communicate between the <em>two processes</em></button>
-    </div> -->
 
     <div class="nav-item u-category-service-bus">
       <h5 class="nav-category">
         <i class="material-icons md-18 nav-icon">directions_bus</i>
         <label>Service Bus</label>
       </h5>
-      <button class="nav-button" type="button" id="button-manage-connections" data-section="manage-connections">
-        <em>Manage Connections</em>
+      <button class="nav-button" type="button" id="button-manage-sb-environments" data-section="manage-sb-environments">
+        <em>Manage Environments</em>
       </button>
-      <!-- <button type="button" id="button-clipboard" data-section="clipboard" class="nav-button">Copy and paste from the <em>clipboard</em></button>
-      <button type="button" id="button-protocol" data-section="protocol" class="nav-button">Launch app from <em>protocol handler</em></button> -->
     </div>
 
-    <!-- <div class="nav-item u-category-media">
-      <h5 class="nav-category">
-        <svg class="nav-icon"><use xlink:href="assets/img/icons.svg#icon-media"></use></svg>
-        Media
-      </h5>
-      <button type="button" id="button-pdf" data-section="pdf" class="nav-button"><em>Print</em> to PDF</button>
-      <button type="button" id="button-desktop-capturer" data-section="desktop-capturer" class="nav-button">Take a <em>screenshot</em></button>
-    </div> -->
-
     <footer class="nav-footer">
-      <button type="button" id="button-about" data-modal="about" class="nav-footer-button">About</button>
-      <a class="nav-footer-logo" href="https://github.com" aria-label="Homepage">
-        <svg class="nav-footer-icon"><use xlink:href="assets/img/icons.svg#icon-love"></use></svg>
-      </a>
+      <!-- footer placeholder -->
     </footer>
   </nav>
 
   <main class="content js-content"></main>
 
 <script>
-require('./assets/imports');
-require('./assets/ex-links');
-require('./assets/nav');
+require('./libraries/core/imports');
+require('./libraries/core/ex-links');
+require('./libraries/core/nav');
 require('./assets/demo-btns');
 require('./assets/code-blocks');
 require('./assets/normalize-shortcuts');
