@@ -11,20 +11,20 @@
     <div class="demo">
       <div class="demo-wrapper">
         <button id="add-connections-toggle" class="js-container-target demo-toggle-button">
-          Add Connection
+          Add Environment
           <div class="demo-meta u-avoid-clicks"><span>for dev, qa, etc.</span></div>
         </button>
         <div class="demo-box">
           <div class="demo-controls">
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
               <input
-                id="add-connection-name"
-                data-field="connectionName"
+                id="add-environment-name"
+                data-field="environment"
                 class="mdl-textfield__input"
                 type="text"
                 placeholder="dev, prod, etc."
                 pattern="[A-Z,a-z,-]*">
-              <label class="mdl-textfield__label" for="add-connection-name">Connection Name</label>
+              <label class="mdl-textfield__label" for="add-environment-name">Environment Name</label>
               <span class="mdl-textfield__error">Letters and - only</span>
             </div>
           </div>
@@ -33,11 +33,35 @@
             <div class="mdl-textfield md-100-percent mdl-js-textfield mdl-textfield--floating-label">
               <input
                 id="add-connection-string"
-                data-field="connectionString"
+                data-field="connection"
                 class="mdl-textfield__input"
                 type="text"
                 placeholder="Endpoint=sb://my.servicebus.windows.net/;SharedAccessKeyName=MyKeyName;SharedAccessKey=MyKey">
               <label class="mdl-textfield__label" for="add-connection-string">Connection String</label>
+            </div>
+          </div>
+
+          <div class="demo-controls">
+            <div class="mdl-textfield md-100-percent mdl-js-textfield mdl-textfield--floating-label">
+              <input
+                id="add-topic"
+                data-field="topic"
+                class="mdl-textfield__input"
+                type="text"
+                placeholder="my-topic">
+              <label class="mdl-textfield__label" for="add-topic">Topic</label>
+            </div>
+          </div>
+
+          <div class="demo-controls">
+            <div class="mdl-textfield md-100-percent mdl-js-textfield mdl-textfield--floating-label">
+              <input
+                id="add-subscription"
+                data-field="subscription"
+                class="mdl-textfield__input"
+                type="text"
+                placeholder="my-subscription">
+              <label class="mdl-textfield__label" for="add-topic">Subscription</label>
             </div>
           </div>
 

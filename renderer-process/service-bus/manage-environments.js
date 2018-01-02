@@ -4,14 +4,20 @@ const { store, keys } = require('../../libraries/data-store');
 const showSnack = require('../../libraries/snackbar');
 
 let state = Map({
+  environment: '',
   connectionName: '',
-  connectionString: '',
+  topic: '',
+  subscription: '',
 });
 
-// elements to listen
-const addConnectionName = document.getElementById('add-connection-name');
+// elements
+const addEnvironmentName = document.getElementById('add-environment-name');
 const addConnectionString = document.getElementById('add-connection-string');
 const saveConnectionBtn = document.getElementById('save-connection');
+const connectionList = document.getElementById('service-bus-connection-list');
+const connectionCount = document.getElementById('sb-connection-count');
+const addTopic = document.getElementById('add-topic');
+const addSubscription = document.getElementById('add-subscription');
 
 /**
  * [getServiceBusConnections description]
@@ -53,22 +59,26 @@ function verifyConnection(connectionString) {
  * @return {void}
  */
 function verifyAndSaveConnection() {
-  const connectionName = state.get('connectionName');
-  const connectionString = state.get('connectionString');
+  const environment = state.get('environment');
+  const connection = state.get('connection');
+  const topic = state.get('topic');
+  const subscription = state.get('subscription');
 
-  if (!connectionName || !connectionString) {
+  if (!environment || !connection) {
     return showSnack({
-      message: 'Connection name and string are required!',
+      message: 'Environment Name and Connection String are required!',
       type: 'warn',
     });
   }
 
-  const serviceBus = verifyConnection(connectionString);
+  const serviceBus = verifyConnection(connection);
   if (serviceBus) {
     const serviceBusConnections = getServiceBusConnections().concat([
       {
-        connectionName,
-        connectionString,
+        environment,
+        connection,
+        topic,
+        subscription,
       },
     ]);
     store.set(keys.SERVICE_BUS_CONNECTIONS, serviceBusConnections);
@@ -85,7 +95,6 @@ function verifyAndSaveConnection() {
  * @param  {[type]} connections [description]
  */
 function renderConnections(connections) {
-  const connectionList = document.getElementById('service-bus-connection-list');
   (connections || []).forEach(c => {
     const li = document.createElement('li');
     li.className = 'mdl-list__item mdl-list__item--three-line';
@@ -95,12 +104,12 @@ function renderConnections(connections) {
     li.appendChild(liSpan);
 
     const nameSpan = document.createElement('span');
-    nameSpan.innerHTML = c.connectionName;
+    nameSpan.innerHTML = c.environment;
     liSpan.appendChild(nameSpan);
 
     const stringSpan = document.createElement('span');
     stringSpan.className = 'mdl-list__item-text-body';
-    stringSpan.innerHTML = c.connectionString.split(';').join(';<br />');
+    stringSpan.innerHTML = c.connection.split(';').join(';<br />');
     liSpan.appendChild(stringSpan);
 
     connectionList.appendChild(li);
@@ -112,7 +121,7 @@ function renderConnections(connections) {
  * @param  {[type]} newValue [description]
  */
 function onConnectionStringChange(newValue) {
-  document.getElementById('sb-connection-count').innerHTML = (newValue || []).length;
+  connectionCount.innerHTML = (newValue || []).length;
   renderConnections(newValue);
 }
 
@@ -122,7 +131,7 @@ function onConnectionStringChange(newValue) {
 function init() {
   const serviceBusConnections = getServiceBusConnections();
   // set connection count
-  document.getElementById('sb-connection-count').innerHTML = serviceBusConnections.length;
+  connectionCount.innerHTML = serviceBusConnections.length;
   // invoke callback when connection strings change
   store.onDidChange(keys.SERVICE_BUS_CONNECTIONS, onConnectionStringChange);
   // render connection strings
@@ -130,8 +139,10 @@ function init() {
 }
 
 // bind event listeners
-addConnectionName.addEventListener('input', onFieldValueChange);
+addEnvironmentName.addEventListener('input', onFieldValueChange);
 addConnectionString.addEventListener('input', onFieldValueChange);
+addTopic.addEventListener('input', onFieldValueChange);
+addSubscription.addEventListener('input', onFieldValueChange);
 saveConnectionBtn.addEventListener('click', verifyAndSaveConnection);
 
 init();
