@@ -1,0 +1,35 @@
+<template class="task-template">
+  <div id="dashboard-modal" class="dashboard modal">
+    <div class="dashboard-wrapper">
+      <header class="dashboard-header">
+        <h2>Header</h2>
+      </header>
+
+      <main class="dashboard-sections">
+        <section class="dashboard-section play-along">
+          <h2>Dashboard</h2>
+
+          <div class="mdl-textfield mdl-js-textfield getmdl-select">
+              <input type="text" value="" class="mdl-textfield__input" id="sample2" readonly>
+              <input type="hidden" value="" name="sample2">
+              <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+              <label for="sample2" class="mdl-textfield__label">Select Environment</label>
+              <ul for="sample2" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                  <li class="mdl-menu__item" data-val="qa">qa</li>
+                  <li class="mdl-menu__item" data-val="DEV">dev</li>
+              </ul>
+          </div>
+
+        </section>
+        <section class="dashboard-section dashboard-code">
+
+        </section>
+        <footer class="dashboard-section footer">
+          <div class="rainbow-button-wrapper">
+            <button id="get-started" class="dashboard-button modal-hide">Manage Environments</button>
+          </div>
+        </footer>
+      </main>
+    </div>
+  </div>
+</template>
