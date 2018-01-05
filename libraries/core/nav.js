@@ -41,7 +41,10 @@ function handleSectionTrigger(event) {
  * [activateDefaultSection description]
  */
 function activateDefaultSection() {
-  document.getElementById('button-windows').click();
+  const buttonWindows = document.getElementById('button-windows');
+  if (buttonWindows) {
+    buttonWindows.click();
+  }
 }
 
 /**
@@ -76,8 +79,8 @@ function handleModalTrigger(event) {
 /**
  * [displayAbout description]
  */
-function displayAbout() {
-  document.querySelector('#about-modal').classList.add('is-shown');
+function displayDashboard() {
+  document.querySelector('#dashboard-modal').classList.add('is-shown');
 }
 
 // handle navigation click events
@@ -99,5 +102,5 @@ if (sectionId) {
   if (section) section.click();
 } else {
   activateDefaultSection();
-  displayAbout();
+  displayDashboard();
 }
