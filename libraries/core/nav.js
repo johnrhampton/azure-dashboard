@@ -19,6 +19,15 @@ function hideAllSectionsAndDeselectButtons() {
 }
 
 /**
+ * [displaySection description]
+ * @param  {[type]} section [description]
+ */
+function displaySection(section) {
+  const sectionId = `${section}-section`;
+  document.getElementById(sectionId).classList.add('is-shown');
+}
+
+/**
  * [handleSectionTrigger description]
  * @param  {[type]} event [description]
  */
@@ -29,8 +38,7 @@ function handleSectionTrigger(event) {
   event.target.classList.add('is-selected');
 
   // Display the current section
-  const sectionId = `${event.target.dataset.section}-section`;
-  document.getElementById(sectionId).classList.add('is-shown');
+  displaySection(event.target.dataset.section);
 
   // Save currently active button in localStorage
   const buttonId = event.target.getAttribute('id');
@@ -49,8 +57,11 @@ function activateDefaultSection() {
  * [showMainContent description]
  */
 function showMainContent() {
-  document.querySelector('.js-nav').classList.add('is-shown');
-  document.querySelector('.js-content').classList.add('is-shown');
+  const nav = document.querySelector('.js-nav');
+  if (nav) nav.classList.add('is-shown');
+
+  const content = document.querySelector('.js-content');
+  if (content) content.classList.add('is-shown');
 }
 
 /**
@@ -97,7 +108,11 @@ const sectionId = settings.get('activeSectionButtonId');
 if (sectionId) {
   showMainContent();
   const section = document.getElementById(sectionId);
-  if (section) section.click();
+  if (section) {
+    section.click();
+  } else {
+    displaySection('dashboard');
+  }
 } else {
   activateDefaultSection();
   displayDashboard();

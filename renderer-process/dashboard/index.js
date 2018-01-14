@@ -1,5 +1,6 @@
 const { store, keys } = require('../../libraries/data-store');
 const azureSb = require('../../libraries/service-bus');
+const classNames = require('../../libraries/class-names');
 
 const INTERVAL = 60000;
 
@@ -8,6 +9,7 @@ const environmentList = document.getElementById('environment-list');
 const displayEnvironment = document.getElementById('display-environment');
 const environmentValue = document.getElementById('display-environment-value');
 const subscriptionsList = document.getElementById('subscriptions-list');
+const serviceBusContent = document.getElementById('service-bus-content');
 
 /**
  * [updateUI description]
@@ -17,10 +19,15 @@ const subscriptionsList = document.getElementById('subscriptions-list');
  */
 function updateUI(uiResults, topic, subscription) {
   // get icon class based on result count
+  const resultIconClass = classNames({
+    'normal-status': uiResults.active <= 100,
+    'alert-status': uiResults.active >= 100 && uiResults.active <= 250,
+    'critical-status': uiResults.active > 250,
+  });
 
   const resultsTemplate = `
   <li class="mdl-list__item mdl-list__item--two-line">
-    <i class="material-icons topic-icon">sentiment_very_satisfied</i>
+    <i class="material-icons md-36 topic-icon ${resultIconClass}"></i>
     <span class="mdl-list__item-primary-content">
       <span>${topic}</span>
       <span class="mdl-list__item-sub-title">${subscription}</span>
@@ -51,6 +58,9 @@ function updateUI(uiResults, topic, subscription) {
  * @param  {[type]} subscription [description]
  */
 function getSubscriptionData(topic, subscription) {
+  // clear any existing data
+  subscriptionsList.innerHTML = '';
+
   azureSb.getSubscriptionCount(topic, subscription).then(results => {
     const uiResults = {
       active: results['d3p1:ActiveMessageCount'],
@@ -68,9 +78,8 @@ function getSubscriptionData(topic, subscription) {
 function monitorAndUpdateResults(topic, subscription) {
   // get results immediately, then set interval
   getSubscriptionData(topic, subscription);
-  setInterval(() => {
-    getSubscriptionData(topic, subscription);
-  }, INTERVAL);
+  // get results every INTERVAL
+  setInterval(() => { getSubscriptionData(topic, subscription); }, INTERVAL);
 }
 
 /**
@@ -81,6 +90,8 @@ function handleEnvironmentSelected() {
   const { environments } = store.get(keys.CONFIG);
   // get the selected environment
   const { 'service-bus': sb, 'topic-prefix': topicPrefix } = environments[environmentValue.value];
+  // remove no-display class from service bus content area
+  serviceBusContent.classList.remove('no-display');
   // connect to service bus
   azureSb.connect(sb.connection);
   // monitor subscriptions

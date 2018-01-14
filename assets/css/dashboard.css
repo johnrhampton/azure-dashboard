@@ -4,14 +4,34 @@
   padding-right: 10px;
 }
 
+.sync-icon {
+  right: 25px;
+  position: absolute;
+}
+
 .normal-status {
   color: #4caf50;
 }
 
+.normal-status::before {
+    font-family: 'Material Icons';
+    content: '\E815';
+  }
+
 .alert-status {
-  color: #FF9800;
+  color: #ff9800;
 }
 
+.alert-status::before {
+    font-family: 'Material Icons';
+    content: '\E811';
+  }
+
 .critical-status {
-  color: #F44336;
+  color: #f44336;
 }
+
+.critical-status::before {
+    font-family: 'Material Icons';
+    content: '\E814';
+  }
