@@ -6,8 +6,8 @@ const showSnack = require('../../libraries/snackbar');
 let state = Map({
   environment: '',
   connectionName: '',
-  topic: '',
-  subscription: '',
+  // topic: '',
+  // subscription: '',
 });
 
 // elements
@@ -16,8 +16,8 @@ const addConnectionString = document.getElementById('add-connection-string');
 const saveConnectionBtn = document.getElementById('save-connection');
 const connectionList = document.getElementById('service-bus-connection-list');
 const connectionCount = document.getElementById('sb-connection-count');
-const addTopic = document.getElementById('add-topic');
-const addSubscription = document.getElementById('add-subscription');
+// const addTopic = document.getElementById('add-topic');
+// const addSubscription = document.getElementById('add-subscription');
 
 /**
  * [getServiceBusConnections description]
@@ -77,8 +77,8 @@ function verifyAndSaveConnection() {
       {
         environment,
         connection,
-        topic,
-        subscription,
+        // topic,
+        // subscription,
       },
     ]);
     store.set(keys.SERVICE_BUS_CONNECTIONS, serviceBusConnections);
@@ -141,8 +141,8 @@ function init() {
 // bind event listeners
 addEnvironmentName.addEventListener('input', onFieldValueChange);
 addConnectionString.addEventListener('input', onFieldValueChange);
-addTopic.addEventListener('input', onFieldValueChange);
-addSubscription.addEventListener('input', onFieldValueChange);
+// addTopic.addEventListener('input', onFieldValueChange);
+// addSubscription.addEventListener('input', onFieldValueChange);
 saveConnectionBtn.addEventListener('click', verifyAndSaveConnection);
 
 init();

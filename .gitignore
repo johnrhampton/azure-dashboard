@@ -6,3 +6,6 @@ node_modules/
 
 # use yarn
 package-lock.json
+
+# app config
+app-config.json

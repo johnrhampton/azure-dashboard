@@ -52,7 +52,7 @@
   },
   "dependencies": {
     "azure-sb": "^0.10.5",
-    "bus-boy": "0.0.2",
+    "bus-boy": "0.0.4",
     "electron-settings": "3.0.7",
     "electron-shortcut-normalizer": "1.0.0",
     "electron-store": "1.3.0",

@@ -1,35 +1,50 @@
 <template class="task-template">
-  <div id="dashboard-modal" class="dashboard modal">
-    <div class="dashboard-wrapper">
-      <header class="dashboard-header">
-        <h2>Header</h2>
-      </header>
+  <div id="dashboard-section" class="section js-section">
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
 
-      <main class="dashboard-sections">
-        <section class="dashboard-section play-along">
-          <h2>Dashboard</h2>
+      <div class="android-header mdl-layout__header mdl-layout__header--waterfall">
+        <div class="mdl-layout__header-row">
+          <span class="mdl-layout-title" style="color: black;">
+
+          </span>
+          <div class="mdl-layout-spacer"></div>
 
           <div class="mdl-textfield mdl-js-textfield getmdl-select">
-              <input type="text" value="" class="mdl-textfield__input" id="sample2" readonly>
-              <input type="hidden" value="" name="sample2">
-              <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
-              <label for="sample2" class="mdl-textfield__label">Select Environment</label>
-              <ul for="sample2" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                  <li class="mdl-menu__item" data-val="qa">qa</li>
-                  <li class="mdl-menu__item" data-val="DEV">dev</li>
-              </ul>
+            <input type="text" value="" class="mdl-textfield__input custom-text" id="display-environment" readonly>
+            <input type="hidden" value="" name="display-environment" id="display-environment-value">
+            <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+            <label for="display-environment" class="mdl-textfield__label">Select Environment</label>
+            <ul id="environment-list" for="display-environment" class="mdl-menu mdl-menu--bottom-left mdl-js-menu"></ul>
           </div>
 
-        </section>
-        <section class="dashboard-section dashboard-code">
+          <button data-modal="config" class="mdl-button mdl-js-button mdl-button--icon">
+            <i data-modal="config" class="material-icons">settings</i>
+          </button>
+        </div>
+      </div>
 
-        </section>
-        <footer class="dashboard-section footer">
-          <div class="rainbow-button-wrapper">
-            <button id="get-started" class="dashboard-button modal-hide">Manage Environments</button>
-          </div>
-        </footer>
-      </main>
+      <div class="mdl-layout__drawer">
+        <span class="mdl-layout-title">
+          Navigation
+        </span>
+        <nav class="mdl-navigation">
+          <a id="get-started" class="mdl-navigation__link modal-hide">Manage Environments</a>
+          <a class="mdl-navigation__link" href="">Something else</a>
+        </nav>
+      </div>
+
+      <div class="mdl-layout__content">
+        <a name="top"></a>
+        <div class="mdl-typography--text-center">
+          <div class="logo-font slogan">azure dashboard</div>
+        </div>
+
+        <ul id="subscriptions-list" class="demo-list-control mdl-list"></ul>
+      </div>
     </div>
-  </div>
+
+
+  <script type="text/javascript">
+  require('./renderer-process/dashboard/index');
+</script>
 </template>

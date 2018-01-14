@@ -10,3 +10,72 @@
 .mdl-textfield.md-100-percent {
   width: 100%;
 }
+
+.slogan {
+  font-size: 26px;
+  margin: 0 16px;
+  padding-top: 24px;
+}
+
+.mdl-textfield__input.custom-text {
+  color: #767777;
+}
+
+::selection {
+  background-color: #6ab344;
+  color: #fff;
+}
+
+.android-header .mdl-menu__container {
+  z-index: 50;
+  margin: 0 !important;
+}
+
+.mdl-textfield--expandable {
+  width: auto;
+}
+
+.android-header {
+  overflow: visible;
+  background-color: white;
+}
+
+.android-header .material-icons {
+  color: #767777 !important;
+}
+
+.android-header .mdl-layout__drawer-button {
+  background: transparent;
+  color: #767777;
+}
+
+.android-header .mdl-navigation__link {
+  color: #757575;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.android-drawer {
+  border-right: none;
+}
+
+.android-drawer-separator {
+  height: 1px;
+  background-color: #dcdcdc;
+  margin: 8px 0;
+}
+
+.android-drawer .mdl-navigation__link.mdl-navigation__link {
+  font-size: 14px;
+  color: #757575;
+}
+
+.android-drawer span.mdl-navigation__link.mdl-navigation__link {
+  color: #8bc34a;
+}
+
+.android-drawer .mdl-layout-title {
+  position: relative;
+  background: #6ab344;
+  height: 160px;
+}

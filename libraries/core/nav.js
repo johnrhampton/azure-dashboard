@@ -42,9 +42,7 @@ function handleSectionTrigger(event) {
  */
 function activateDefaultSection() {
   const buttonWindows = document.getElementById('button-windows');
-  if (buttonWindows) {
-    buttonWindows.click();
-  }
+  if (buttonWindows) buttonWindows.click();
 }
 
 /**

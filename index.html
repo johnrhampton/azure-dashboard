@@ -25,10 +25,12 @@
   <link rel="stylesheet" href="assets/css/md.css">
 
   <!-- sections style -->
+  <link rel="stylesheet" href="assets/css/config.css">
   <link rel="stylesheet" href="assets/css/dashboard.css">
   <link rel="stylesheet" href="assets/css/service-bus.css">
 
   <!-- sections templates -->
+  <link rel="import" href="sections/config.html">
   <link rel="import" href="sections/dashboard.html">
   <link rel="import" href="sections/service-bus/manage-environments.html">
 </head>
@@ -36,7 +38,7 @@
 
   <nav class="nav js-nav">
     <header class="nav-header">
-      <h1 class="nav-title" data-modal="dashboard">
+      <h1 class="nav-title" data-section="dashboard" id="button-dashboard">
         Azure Dashboard
       </h1>
       <i class="material-icons md-36 nav-header-icon">dashboard</i>

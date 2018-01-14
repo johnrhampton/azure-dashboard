@@ -1,8 +1,9 @@
 const path = require('path');
 const glob = require('glob');
-const electron = require('electron');
+const electron = require('electron'); // eslint-disable-line import/no-extraneous-dependencies
 
 const autoUpdater = require('./auto-updater');
+const { loadConfig } = require('./boot/app-config');
 
 const BrowserWindow = electron.BrowserWindow;
 const app = electron.app;
@@ -36,7 +37,7 @@ function makeSingleInstance() {
  * Require JS files in the main-process dir
  */
 function loadMainProcessFiles() {
-  let files = glob.sync(path.join(__dirname, 'main-process/**/*.js'));
+  const files = glob.sync(path.join(__dirname, 'main-process/**/*.js'));
   files.forEach(file => {
     require(file);
   });
@@ -45,20 +46,24 @@ function loadMainProcessFiles() {
 
 /**
  * Initialize the Electron App
+ * @return {void}
  */
 function initialize() {
-  let shouldQuit = makeSingleInstance();
+  const shouldQuit = makeSingleInstance();
   if (shouldQuit) return app.quit();
 
   loadMainProcessFiles();
 
+  loadConfig();
+
   // create the main window
+  // eslint-disable-next-line require-jsdoc
   function createWindow() {
-    let windowOptions = {
+    const windowOptions = {
       width: 1080,
       minWidth: 680,
       height: 840,
-      title: app.getName()
+      title: app.getName(),
     };
 
     if (process.platform === 'linux') {
@@ -72,26 +77,26 @@ function initialize() {
     if (debug) {
       mainWindow.webContents.openDevTools();
       mainWindow.maximize();
-      require('devtron').install();
+      require('devtron').install(); // eslint-disable-line import/no-extraneous-dependencies
     }
 
-    mainWindow.on('closed', function() {
+    mainWindow.on('closed', () => {
       mainWindow = null;
     });
   }
 
-  app.on('ready', function() {
+  app.on('ready', () => {
     createWindow();
     autoUpdater.initialize();
   });
 
-  app.on('window-all-closed', function() {
+  app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {
       app.quit();
     }
   });
 
-  app.on('activate', function() {
+  app.on('activate', () => {
     if (mainWindow === null) {
       createWindow();
     }
@@ -101,12 +106,12 @@ function initialize() {
 // Handle Squirrel on Windows startup events
 switch (process.argv[1]) {
   case '--squirrel-install':
-    autoUpdater.createShortcut(function() {
+    autoUpdater.createShortcut(() => {
       app.quit();
     });
     break;
   case '--squirrel-uninstall':
-    autoUpdater.removeShortcut(function() {
+    autoUpdater.removeShortcut(() => {
       app.quit();
     });
     break;
