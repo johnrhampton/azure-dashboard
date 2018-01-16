@@ -2,7 +2,7 @@ const { store, keys } = require('../../libraries/data-store');
 const azureSb = require('../../libraries/service-bus');
 const classNames = require('../../libraries/class-names');
 
-const INTERVAL = 60000;
+const INTERVAL = 120000;
 
 // elements
 const environmentList = document.getElementById('environment-list');

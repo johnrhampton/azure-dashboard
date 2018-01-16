@@ -111,6 +111,7 @@ if (sectionId) {
   if (section) {
     section.click();
   } else {
+    // default to dashboard
     displaySection('dashboard');
   }
 } else {

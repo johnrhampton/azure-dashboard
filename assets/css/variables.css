@@ -11,6 +11,9 @@
   --color-bg:       hsl(0,0%,96%);
 
   --color-accent:   black; /* Fallback */
+
+  --background-color: #181d23;
+  --text-color: #b7c5d3;  
 }
 
 

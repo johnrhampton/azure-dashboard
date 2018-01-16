@@ -11,6 +11,15 @@
   width: 100%;
 }
 
+.mdl-list__item {
+  color: var(--text-color);
+}
+
+.mdl-list__item--two-line .mdl-list__item-primary-content .mdl-list__item-sub-title {
+  color: var(--text-color);
+  font-size: 16px;
+}
+
 .slogan {
   font-size: 26px;
   margin: 0 16px;
@@ -26,6 +35,25 @@
   color: #fff;
 }
 
+.android-header {
+  overflow: visible;
+  background-color: var(--background-color);
+}
+
+.android-header .material-icons {
+  color: var(--text-color) !important;
+}
+
+.mdl-textfield__label {
+  color: var(--text-color);
+}
+
+.mdl-textfield__input {
+  border-bottom: 1px solid var(--text-color);
+}
+
+/* ---- demo */
+
 .android-header .mdl-menu__container {
   z-index: 50;
   margin: 0 !important;
@@ -33,15 +61,6 @@
 
 .mdl-textfield--expandable {
   width: auto;
-}
-
-.android-header {
-  overflow: visible;
-  background-color: white;
-}
-
-.android-header .material-icons {
-  color: #767777 !important;
 }
 
 .android-header .mdl-layout__drawer-button {
