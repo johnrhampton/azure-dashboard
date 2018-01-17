@@ -1,6 +1,7 @@
 const { store, keys } = require('../../libraries/data-store');
 const azureSb = require('../../libraries/service-bus');
 const classNames = require('../../libraries/class-names');
+const ipc = require('electron').ipcRenderer;
 
 const INTERVAL = 120000;
 
@@ -58,6 +59,7 @@ function updateUI(uiResults, topic, subscription) {
  * @param  {[type]} subscription [description]
  */
 function getSubscriptionData(topic, subscription) {
+  ipc.send('notify-s');
   // clear any existing data
   subscriptionsList.innerHTML = '';
 
@@ -87,16 +89,16 @@ function monitorAndUpdateResults(topic, subscription) {
  * @param  {[type]} e [description]
  */
 function handleEnvironmentSelected() {
-  const { environments } = store.get(keys.CONFIG);
+  const { environments, subscriptionsToMonitor } = store.get(keys.CONFIG);
   // get the selected environment
-  const { 'service-bus': sb, 'topic-prefix': topicPrefix } = environments[environmentValue.value];
+  const { serviceBus } = environments[environmentValue.value];
   // remove no-display class from service bus content area
   serviceBusContent.classList.remove('no-display');
   // connect to service bus
-  azureSb.connect(sb.connection);
+  azureSb.connect(serviceBus.connection);
   // monitor subscriptions
-  sb['subscriptions-to-monitor'].forEach(s => {
-    const topic = `${topicPrefix}-${s.topic}`;
+  subscriptionsToMonitor.forEach(s => {
+    const topic = `${serviceBus.topicPrefix}-${s.topic}`;
     monitorAndUpdateResults(topic, s.subscription);
   });
 }
