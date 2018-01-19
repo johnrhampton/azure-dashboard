@@ -1,0 +1,16 @@
+<template class="task-template">
+  <div id="dashboard-section" class="section js-section">
+    <div class="mdl-typography--text-center">
+      <div class="logo-font slogan">Service Bus</div>
+    </div>
+
+    <div id="service-bus-content" class="no-display">
+      <span id="service-bus-last-update" class="service-bus-last-update"></span>
+      <i id="sync-icon" class="fas fa-sync fa-spin sync-icon"></i>
+      <ul id="subscriptions-list" class="demo-list-control mdl-list"></ul>
+    </div>
+
+  <script type="text/javascript">
+  require('./renderer-process/dashboard/index');
+</script>
+</template>
