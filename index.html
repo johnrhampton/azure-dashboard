@@ -34,32 +34,46 @@
 
   <!-- sections templates -->
   <link rel="import" href="sections/config.html">
-  <link rel="import" href="sections/dashboard.html">
+  <link rel="import" href="sections/service-bus/index.html">
   <link rel="import" href="sections/service-bus/manage-environments.html">
 </head>
 <body>
 
-  <!-- <nav class="nav js-nav"> -->
-    <!-- <header class="nav-header"> -->
-      <!-- <h1 class="nav-title" data-section="dashboard" id="button-dashboard">
-        Azure Dashboard
-      </h1> -->
-      <!-- <i class="material-icons md-36 nav-header-icon">dashboard</i> -->
-    <!-- </header> -->
+  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <div class="android-header mdl-layout__header mdl-layout__header--waterfall">
+      <div class="mdl-layout__header-row">
+        <span class="mdl-layout-title" style="color: black;">
 
-    <!-- <div class="nav-item u-category-service-bus">
-      <h5 class="nav-category">
-        <i class="material-icons md-18 nav-icon">directions_bus</i>
-        <label>Service Bus</label>
-      </h5>
-      <button class="nav-button" type="button" id="button-manage-sb-environments" data-section="manage-sb-environments">
-        <em>Manage Environments</em>
-      </button>
+        </span>
+        <div class="mdl-layout-spacer"></div>
+
+        <div class="mdl-textfield mdl-js-textfield getmdl-select">
+          <input type="text" value="" class="mdl-textfield__input custom-text" id="display-environment" readonly>
+          <input type="hidden" value="" name="display-environment" id="display-environment-value">
+          <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+          <label for="display-environment" class="mdl-textfield__label">Select Environment</label>
+          <ul id="environment-list" for="display-environment" class="mdl-menu mdl-menu--bottom-left mdl-js-menu"></ul>
+        </div>
+
+        <button data-modal="config" class="mdl-button mdl-js-button mdl-button--icon">
+          <i data-modal="config" class="material-icons">settings</i>
+        </button>
+      </div>
     </div>
 
-    <footer class="nav-footer">
-    </footer> -->
-  <!-- </nav> -->
+    <div class="mdl-layout__drawer">
+      <span class="mdl-layout-title">
+        Navigation
+      </span>
+      <nav class="mdl-navigation">
+        <a id="get-started" class="mdl-navigation__link modal-hide">Manage Environments</a>
+        <a class="mdl-navigation__link" href="">Something else</a>
+      </nav>
+    </div>
+
+    <!-- removing this throws a listener error - fix, so it can be removed -->
+    <div class="mdl-layout__content"></div>
+  </div>
 
   <main class="content js-content"></main>
 
