@@ -5,33 +5,44 @@
 }
 
 .sync-icon {
-  right: 25px;
+  right: 12px;
   position: absolute;
+  color: #539afc;
 }
 
-.normal-status {
+.pretty-pretty-good-status {
   color: #4caf50;
 }
 
-.normal-status::before {
-    font-family: 'Material Icons';
-    content: '\E815';
-  }
+.pretty-pretty-good-status::before {
+  font-family: 'Material Icons';
+  content: '\E815';
+}
 
-.alert-status {
+.meh-status {
   color: #ff9800;
 }
 
-.alert-status::before {
-    font-family: 'Material Icons';
-    content: '\E811';
-  }
+.meh-status::before {
+  font-family: 'Material Icons';
+  content: '\E811';
+}
 
-.critical-status {
+.ugh-status {
   color: #f44336;
 }
 
-.critical-status::before {
-    font-family: 'Material Icons';
-    content: '\E814';
-  }
+.ugh-status::before {
+  font-family: 'Material Icons';
+  content: '\E814';
+}
+
+.danger-status::before {
+  content: '☠';
+}
+
+.service-bus-last-update {
+  color: #539afc;
+  right: 32px;
+  position: absolute;
+}
