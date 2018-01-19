@@ -111,8 +111,8 @@ if (sectionId) {
   if (section) {
     section.click();
   } else {
-    // default to dashboard
-    displaySection('dashboard');
+    // default to service-bus
+    displaySection('service-bus');
   }
 } else {
   activateDefaultSection();
