@@ -10,6 +10,8 @@
     "document": true
   },
   "rules": {
+    "object-curly-newline": "off",
+    "import/no-extraneous-dependencies": "off",
     "arrow-parens": ["error", "as-needed"],
     "prefer-destructuring": "off",
     "linebreak-style": "off",
