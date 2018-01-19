@@ -113,7 +113,7 @@ function updateResults(subscriptionResults) {
   subscriptionResults.sort(sortResults).forEach(r => {
     if (r.active >= ugh) {
       ipc.send('request-user-notification', {
-        title: `Ugh, Active Message Threshold Exceeded - ${r.subscription}`,
+        title: `${r.subscription} exceeded threshold!`,
         text: r.active,
       });
     }
@@ -135,6 +135,8 @@ function handleEnvironmentSelected() {
   const { environments, serviceBus } = config;
   // clear existing environment intervals
   if (environmentInterval) clearInterval(environmentInterval);
+  // clear existing data
+  subscriptionsList.innerHTML = '';
   // get the selected environment
   const { serviceBus: environmentServiceBus } = environments[environmentValue.value];
   // remove no-display class from service bus content area
