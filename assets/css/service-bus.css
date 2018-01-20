@@ -1,3 +1,48 @@
-.service-bus-connection-list {
-  width: 800px;
+.topic-icon {
+  margin-top: 0px;
+  padding-left: 5px;
+  padding-right: 10px;
+}
+
+.sync-icon {
+  right: 12px;
+  position: absolute;
+  color: #539afc;
+}
+
+.pretty-pretty-good-status {
+  color: #4caf50;
+}
+
+.pretty-pretty-good-status::before {
+  font-family: 'Material Icons';
+  content: '\E815';
+}
+
+.meh-status {
+  color: #ff9800;
+}
+
+.meh-status::before {
+  font-family: 'Material Icons';
+  content: '\E811';
+}
+
+.ugh-status {
+  color: #f44336;
+}
+
+.ugh-status::before {
+  font-family: 'Material Icons';
+  content: '\E814';
+}
+
+.danger-status::before {
+  content: '☠';
+}
+
+.service-bus-last-update {
+  color: #539afc;
+  right: 32px;
+  position: absolute;
 }

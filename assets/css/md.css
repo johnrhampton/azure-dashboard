@@ -52,8 +52,6 @@
   border-bottom: 1px solid var(--text-color);
 }
 
-/* ---- demo */
-
 .header .mdl-menu__container {
   z-index: 50;
   margin: 0 !important;
@@ -78,19 +76,21 @@
   border-right: none;
 }
 
-.drawer-separator {
-  height: 1px;
-  background-color: #dcdcdc;
-  margin: 8px 0;
-}
-
 .drawer .mdl-navigation__link.mdl-navigation__link {
   font-size: 14px;
   color: #757575;
 }
 
+.drawer .mdl-navigation__link.mdl-navigation__link.is-selected {
+  color: #539afc;
+}
+
 .drawer span.mdl-navigation__link.mdl-navigation__link {
   color: #8bc34a;
+}
+
+.drawer a.mdl-navigation__link.mdl-navigation__link {
+  border: none;
 }
 
 .drawer .mdl-layout-title {
