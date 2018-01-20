@@ -24,12 +24,10 @@
   <link rel="stylesheet" href="assets/css/nav.css">
   <link rel="stylesheet" href="assets/css/section.css">
   <link rel="stylesheet" href="assets/css/demo.css">
-  <link rel="stylesheet" href="assets/css/github.css">
   <link rel="stylesheet" href="assets/css/md.css">
 
   <!-- sections style -->
   <link rel="stylesheet" href="assets/css/config.css">
-  <link rel="stylesheet" href="assets/css/dashboard.css">
   <link rel="stylesheet" href="assets/css/service-bus.css">
 
   <!-- sections templates -->
@@ -39,7 +37,7 @@
 <body>
 
   <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-    <div class="android-header mdl-layout__header mdl-layout__header--waterfall">
+    <div class="header mdl-layout__header mdl-layout__header--waterfall">
       <div class="mdl-layout__header-row">
         <span class="mdl-layout-title" style="color: black;">
 
@@ -60,13 +58,13 @@
       </div>
     </div>
 
-    <div class="mdl-layout__drawer">
+    <div id="main-nav-drawer" class="mdl-layout__drawer drawer">
       <span class="mdl-layout-title">
         Navigation
       </span>
       <nav class="mdl-navigation">
-        <a id="get-started" class="mdl-navigation__link modal-hide">Manage Environments</a>
-        <a class="mdl-navigation__link" href="">Something else</a>
+        <a class="mdl-navigation__link modal-hide" data-section="service-bus">Service Bus</a>
+        <a class="mdl-navigation__link modal-hide" data-section="oms">OMS</a>
       </nav>
     </div>
 
