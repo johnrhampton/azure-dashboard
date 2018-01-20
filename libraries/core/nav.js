@@ -1,71 +1,70 @@
-/**
- * Handles all navigation
- */
 const settings = require('electron-settings');
 
+const ACTIVE_SECTION = 'active-section';
+const defaultSection = 'service-bus';
+const mainNavDrawer = document.getElementById('main-nav-drawer');
+
 /**
- * [hideAllSectionsAndDeselectButtons description]
+ * Hides active section, closes drawer, deselects navigation links
  */
-function hideAllSectionsAndDeselectButtons() {
+function prepForSectionDisplay() {
+  // hide active sections
   const sections = document.querySelectorAll('.js-section.is-shown');
   Array.prototype.forEach.call(sections, section => {
     section.classList.remove('is-shown');
   });
 
-  const buttons = document.querySelectorAll('.nav-button.is-selected');
-  Array.prototype.forEach.call(buttons, button => {
-    button.classList.remove('is-selected');
+  // created by material design lite
+  const mdlObfuscator = document.getElementsByClassName('mdl-layout__obfuscator');
+  // close drawer and remove obfuscator
+  if (mainNavDrawer) mainNavDrawer.classList.remove('is-visible');
+  if (mdlObfuscator && mdlObfuscator[0]) mdlObfuscator[0].classList.remove('is-visible');
+
+  // deselect nav links
+  const navLinks = document.querySelectorAll('.mdl-navigation__link.is-selected');
+  Array.prototype.forEach.call(navLinks, link => {
+    link.classList.remove('is-selected');
   });
 }
 
 /**
- * [displaySection description]
- * @param  {[type]} section [description]
+ * Displays a section
+ * @param  {string} section - Selected section
  */
 function displaySection(section) {
   const sectionId = `${section}-section`;
-  document.getElementById(sectionId).classList.add('is-shown');
+  const selectionElement = document.getElementById(sectionId);
+  if (selectionElement) selectionElement.classList.add('is-shown');
 }
 
 /**
- * [handleSectionTrigger description]
- * @param  {[type]} event [description]
+ * Handles navigation to a section
+ * @param  {object} event - Raised event
  */
-function handleSectionTrigger(event) {
-  hideAllSectionsAndDeselectButtons();
+function handleSectionNavigation(event) {
+  prepForSectionDisplay();
 
-  // Highlight clicked button and show view
+  // add is-selected class to navigation link
   event.target.classList.add('is-selected');
 
-  // Display the current section
+  // display the current section
   displaySection(event.target.dataset.section);
 
-  // Save currently active button in localStorage
-  const buttonId = event.target.getAttribute('id');
-  settings.set('activeSectionButtonId', buttonId);
+  // Save currently active link
+  const activeSection = event.target.dataset.section;
+  settings.set(ACTIVE_SECTION, activeSection);
 }
 
 /**
- * [activateDefaultSection description]
- */
-function activateDefaultSection() {
-  const buttonWindows = document.getElementById('button-windows');
-  if (buttonWindows) buttonWindows.click();
-}
-
-/**
- * [showMainContent description]
+ * Shows the main content area
  */
 function showMainContent() {
-  const nav = document.querySelector('.js-nav');
-  if (nav) nav.classList.add('is-shown');
-
   const content = document.querySelector('.js-content');
   if (content) content.classList.add('is-shown');
 }
 
 /**
- * [hideAllModals description]
+ * Hides all modals and shows the main content area
  */
 function hideAllModals() {
   const modals = document.querySelectorAll('.modal.is-shown');
@@ -76,26 +75,20 @@ function hideAllModals() {
 }
 
 /**
- * [handleModalTrigger description]
- * @param  {[type]} event [description]
+ * Handles displays a modal
+ * @param  {object} event - Raised event
  */
 function handleModalTrigger(event) {
   hideAllModals();
   const modalId = `${event.target.dataset.modal}-modal`;
-  document.getElementById(modalId).classList.add('is-shown');
-}
-
-/**
- * [displayAbout description]
- */
-function displayDashboard() {
-  document.querySelector('#dashboard-modal').classList.add('is-shown');
+  const modalToDisplay = document.getElementById(modalId);
+  if (modalToDisplay) modalToDisplay.classList.add('is-shown');
 }
 
 // handle navigation click events
 document.body.addEventListener('click', event => {
   if (event.target.dataset.section) {
-    handleSectionTrigger(event);
+    handleSectionNavigation(event);
   } else if (event.target.dataset.modal) {
     handleModalTrigger(event);
   } else if (event.target.classList.contains('modal-hide')) {
@@ -104,17 +97,10 @@ document.body.addEventListener('click', event => {
 });
 
 // Default to the view that was active the last time the app was open
-const sectionId = settings.get('activeSectionButtonId');
-if (sectionId) {
+const section = settings.get(ACTIVE_SECTION);
+if (section) {
   showMainContent();
-  const section = document.getElementById(sectionId);
-  if (section) {
-    section.click();
-  } else {
-    // default to service-bus
-    displaySection('service-bus');
-  }
+  displaySection(section);
 } else {
-  activateDefaultSection();
-  displayDashboard();
+  displaySection(defaultSection);
 }
