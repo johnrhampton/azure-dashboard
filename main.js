@@ -1,14 +1,11 @@
 const path = require('path');
 const glob = require('glob');
-const electron = require('electron'); // eslint-disable-line import/no-extraneous-dependencies
+const { app, BrowserWindow } = require('electron'); // eslint-disable-line import/no-extraneous-dependencies
 
 const autoUpdater = require('./auto-updater');
 const { loadConfig } = require('./boot/app-config');
 
-const BrowserWindow = electron.BrowserWindow;
-const app = electron.app;
-
-const debug = /--debug/.test(process.argv[2]);
+const debug = /--debug/.test(process.argv[3]);
 
 if (process.mas) app.setName('Azure Dashboard');
 
