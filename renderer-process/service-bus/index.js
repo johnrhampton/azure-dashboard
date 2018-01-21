@@ -1,4 +1,4 @@
-const ipc = require('electron').ipcRenderer;
+const { ipcRenderer: ipc } = require('electron');
 const moment = require('moment');
 const { store, keys } = require('../../libraries/data-store');
 const azureSb = require('../../libraries/service-bus');
