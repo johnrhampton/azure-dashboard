@@ -1,3 +1,4 @@
+const { ipcRenderer: ipc } = require('electron');
 const settings = require('electron-settings');
 
 const ACTIVE_SECTION = 'active-section';
@@ -64,35 +65,30 @@ function showMainContent() {
 }
 
 /**
- * Hides all modals and shows the main content area
+ * Closes a modal
+ * @param {string} modal - Modal to close
  */
-function hideAllModals() {
-  const modals = document.querySelectorAll('.modal.is-shown');
-  Array.prototype.forEach.call(modals, modal => {
-    modal.classList.remove('is-shown');
-  });
-  showMainContent();
+function hideModal(modal) {
+  ipc.send('request-modal-close', { modal });
 }
 
 /**
  * Handles displays a modal
- * @param  {object} event - Raised event
+ * @param {string} modal - Modal to open
  */
-function handleModalTrigger(event) {
-  hideAllModals();
-  const modalId = `${event.target.dataset.modal}-modal`;
-  const modalToDisplay = document.getElementById(modalId);
-  if (modalToDisplay) modalToDisplay.classList.add('is-shown');
+function showModal(modal) {
+  ipc.send('request-modal-open', { modal });
 }
 
 // handle navigation click events
 document.body.addEventListener('click', event => {
-  if (event.target.dataset.section) {
+  const { dataset } = event.target;
+  if (dataset.section) {
     handleSectionNavigation(event);
-  } else if (event.target.dataset.modal) {
-    handleModalTrigger(event);
-  } else if (event.target.classList.contains('modal-hide')) {
-    hideAllModals();
+  } else if (dataset.modal && dataset.modalAction !== 'close') {
+    showModal(dataset.modal);
+  } else if (dataset.modal && dataset.modalAction === 'close') {
+    hideModal(dataset.modal);
   }
 });
 
