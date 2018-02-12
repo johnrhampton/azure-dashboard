@@ -1,9 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
 
-  <div id="config-modal" class="config modal">
-    <h2>config area</h2>
-  </div>
+  <head>
+    <meta charset="utf-8">
 
-  <script type="text/javascript">
-  require('../../renderer-process/config/index');
-</script>
-</template>
+    <!-- font awesome -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.4/js/all.js"></script>
+
+    <!-- mdl -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="../../node_modules/material-design-lite/dist/material.indigo-pink.min.css">
+    <script defer src="../../node_modules/material-design-lite/material.min.js"></script>
+
+    <!-- global style -->
+    <!-- <link rel="stylesheet" href="../../assets/css/variables.css">
+  <link rel="stylesheet" href="../../assets/css/nativize.css">
+  <link rel="stylesheet" href="../../assets/css/global.css">
+  <link rel="stylesheet" href="../../assets/css/nav.css">
+  <link rel="stylesheet" href="../../assets/css/section.css">
+  <link rel="stylesheet" href="../../assets/css/demo.css">
+  <link rel="stylesheet" href="../../assets/css/md.css"> -->
+  </head>
+
+  <body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      <header class="mdl-layout__header mdl-layout__header--transparent">
+        <div class="mdl-layout__header-row">
+          <span class="mdl-layout-title" style="color: black;">Config</span>
+          <div class="mdl-layout-spacer"></div>
+          <a id="close-config-modal" class="btn" href="#">
+            <i style="color: black;" class="fas fa-times fa-2x"></i>
+          </a>
+        </div>
+      </header>
+      <main class="mdl-layout__content">
+        <div id="main-config-area"></div>
+      </main>
+    </div>
+
+    <script>
+      require('../../libraries/core/nav');
+      require('../../renderer-process/config/index');
+    </script>
+  </body>
+
+</html>

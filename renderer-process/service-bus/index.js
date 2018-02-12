@@ -90,11 +90,13 @@ function getSubscriptionData(subscriptionsToMonitor, topicPrefix, done) {
     const qualifiedTopic = topicPrefix ? `${topicPrefix}-${topic}` : topic;
 
     azureSb.getSubscriptionCount(qualifiedTopic, subscription).then(counts => {
+      const countKeys = Object.keys(counts);
+
       subscriptionResults.push({
         topic: qualifiedTopic,
         subscription,
-        active: counts['d3p1:ActiveMessageCount'],
-        deadLetter: counts['d3p1:DeadLetterMessageCount'],
+        active: counts[countKeys.find(k => k.toLowerCase().includes('active'))],
+        deadLetter: counts[countKeys.find(k => k.toLowerCase().includes('deadletter'))],
       });
 
       if (subscriptionResults.length === subscriptionsToMonitor.length) done(subscriptionResults);
@@ -149,6 +151,11 @@ function handleEnvironmentSelected() {
   environmentInterval = setInterval(() => {
     getSubscriptionData(serviceBus.subscriptionsToMonitor, environmentServiceBus.topicPrefix, updateResults);
   }, serviceBus.monitorRate);
+
+  azureSb.getCountsForAllSubscriptions()
+    .then(results => {
+      console.log(results);
+    });
 }
 
 /**
