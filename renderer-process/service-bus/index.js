@@ -23,8 +23,8 @@ const serviceBusLastUpdate = document.getElementById('service-bus-last-update');
  * @return {number} - comparison
  */
 function sortResults(a, b) {
-  const subA = a.subscription.toLowerCase();
-  const subB = b.subscription.toLowerCase();
+  const subA = (a.subscription || a.q).toLowerCase();
+  const subB = (b.subscription || b.q).toLowerCase();
   if (subA < subB) return -1;
   if (subA > subB) return 1;
   return 0; // equal
@@ -38,7 +38,7 @@ function sortResults(a, b) {
 function buildTemplateForResultSet(subscriptionResult) {
   const { serviceBus: { subscriptionThresholds } } = config;
   const { prettyPrettyGood, meh, ugh } = subscriptionThresholds;
-  const { topic, subscription, active, deadLetter } = subscriptionResult;
+  const { topic, subscription, q, active, deadLetter } = subscriptionResult;
 
   // get icon class based on result count
   const resultIconClass = classNames({
@@ -52,8 +52,8 @@ function buildTemplateForResultSet(subscriptionResult) {
   <li class="mdl-list__item mdl-list__item--two-line">
     <i class="material-icons md-36 topic-icon ${resultIconClass}"></i>
     <span class="mdl-list__item-primary-content">
-      <span>${topic}</span>
-      <span class="mdl-list__item-sub-title">${subscription}</span>
+      <span>${topic || 'service-bus-queue'}</span>
+      <span class="mdl-list__item-sub-title">${subscription || q}</span>
     </span>
 
     <span class="mdl-list__item-secondary-content">
@@ -78,11 +78,14 @@ function buildTemplateForResultSet(subscriptionResult) {
 /**
  * Retrieves data for a list of subscriptions
  * @param  {array} subscriptionsToMonitor - List of topic/subscriptions to monitor
+ * @param  {array} queuesToMonitor - List of queues to monitor
  * @param  {string} topicPrefix - Optional prefix to apply to a topic
  * @param  {function} done - Callback invoked when results for all subscriptions are retrieved
  */
-function getSubscriptionData(subscriptionsToMonitor, topicPrefix, done) {
+function getSubscriptionData(subscriptionsToMonitor, queuesToMonitor, topicPrefix, done) {
   const subscriptionResults = [];
+  // store count of subscriptions and queues we care about
+  const totalMonitorLength = subscriptionsToMonitor.length + queuesToMonitor.length;
 
   subscriptionsToMonitor.forEach(s => {
     const { topic, subscription } = s;
@@ -99,7 +102,21 @@ function getSubscriptionData(subscriptionsToMonitor, topicPrefix, done) {
         deadLetter: counts[countKeys.find(k => k.toLowerCase().includes('deadletter'))],
       });
 
-      if (subscriptionResults.length === subscriptionsToMonitor.length) done(subscriptionResults);
+      if (subscriptionResults.length === totalMonitorLength) done(subscriptionResults);
+    });
+  });
+
+  queuesToMonitor.forEach(q => {
+    azureSb.getQueueCount(q).then(counts => {
+      const countKeys = Object.keys(counts);
+
+      subscriptionResults.push({
+        q,
+        active: counts[countKeys.find(k => k.toLowerCase().includes('active'))],
+        deadLetter: counts[countKeys.find(k => k.toLowerCase().includes('deadletter'))],
+      });
+
+      if (subscriptionResults.length === totalMonitorLength) done(subscriptionResults);
     });
   });
 }
@@ -109,13 +126,13 @@ function getSubscriptionData(subscriptionsToMonitor, topicPrefix, done) {
  * @param  {array} subscriptionResults - List of subscription details
  */
 function updateResults(subscriptionResults) {
-  const { serviceBus: { subscriptionThresholds: { ugh } } } = config;
+  const { serviceBus: { subscriptionThresholds: { ugh }, alertOnHighCount } } = config;
   let resultsTemplate = '';
 
   subscriptionResults.sort(sortResults).forEach(r => {
-    if (r.active >= ugh) {
+    if (alertOnHighCount && r.active >= ugh) {
       ipc.send('request-user-notification', {
-        title: `${r.subscription} exceeded threshold!`,
+        title: `${r.subscription || r.q} exceeded threshold!`,
         text: r.active,
       });
     }
@@ -146,16 +163,25 @@ function handleEnvironmentSelected() {
   // connect to service bus
   azureSb.connect(environmentServiceBus.connection);
   // get subscription data
-  getSubscriptionData(serviceBus.subscriptionsToMonitor, environmentServiceBus.topicPrefix, updateResults);
+  getSubscriptionData(
+    serviceBus.subscriptionsToMonitor,
+    serviceBus.queuesToMonitor,
+    environmentServiceBus.topicPrefix,
+    updateResults,
+  );
   // set an interval to refresh subscription data
   environmentInterval = setInterval(() => {
-    getSubscriptionData(serviceBus.subscriptionsToMonitor, environmentServiceBus.topicPrefix, updateResults);
+    getSubscriptionData(
+      serviceBus.subscriptionsToMonitor,
+      serviceBus.queuesToMonitor,
+      environmentServiceBus.topicPrefix,
+      updateResults,
+    );
   }, serviceBus.monitorRate);
 
-  azureSb.getCountsForAllSubscriptions()
-    .then(results => {
-      console.log(results);
-    });
+  // azureSb.getCountsForAllSubscriptions().then(results => {
+  //   console.log(results);
+  // });
 }
 
 /**

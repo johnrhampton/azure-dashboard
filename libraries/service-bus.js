@@ -59,6 +59,17 @@ function getSubscriptionCount(topic, subscription) {
 }
 
 /**
+ * Returns the count for a given queue
+ * @param  {string} q - Queue to check
+ * @return {promise}
+ */
+function getQueueCount(q) {
+  return busBoy.queueMsgCount(serviceBusService, q)
+    .then(results => results)
+    .catch(error => error);
+}
+
+/**
  * Returns the counts for all subscriptions
  * @return {array}
  */
@@ -74,4 +85,5 @@ module.exports = {
   connect,
   getSubscriptionCount,
   getCountsForAllSubscriptions,
+  getQueueCount,
 };
