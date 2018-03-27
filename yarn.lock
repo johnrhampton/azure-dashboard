@@ -355,9 +355,9 @@ builtin-modules@^1.0.0, builtin-modules@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/builtin-modules/-/builtin-modules-1.1.1.tgz#270f076c5a72c02f5b65a47df94c5fe3a278892f"
 
-bus-boy@0.0.4:
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/bus-boy/-/bus-boy-0.0.4.tgz#ddf581a3dc56b024c92f33cae4ee7ff363280552"
+bus-boy@0.0.5:
+  version "0.0.5"
+  resolved "http://packages.deloitte.com/artifactory/api/npm/npm-virtual/bus-boy/-/bus-boy-0.0.5.tgz#aadc6e77095f50d1103fb76038246b046ad6a0b1"
   dependencies:
     camelcase-keys "4.2.0"
     debug "3.1.0"

@@ -52,7 +52,7 @@
   },
   "dependencies": {
     "azure-sb": "^0.10.5",
-    "bus-boy": "0.0.4",
+    "bus-boy": "0.0.5",
     "electron-notify": "^0.1.0",
     "electron-settings": "3.1.4",
     "electron-shortcut-normalizer": "1.0.0",
